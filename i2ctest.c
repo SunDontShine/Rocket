@@ -61,18 +61,32 @@ void I2C_stop(void){
    TWCR = (1<<TWIE)| (0<<TWEA) | (1<<TWEN) | (1<<TWINT);
    printString("9 Received, NACK\r\n");
   }
-  } 
+  }else if( (TWSR & 0xF8) == TW_ST_DATA_ACK ){ //selected and Slave transmitter
+   packet = TWDR;
+//if receive a "9", exit
+  if(packet == 9){
+   TWCR = (1<<TWIE)| (0<<TWEA) | (1<<TWEN) | (1<<TWINT);
+   printString("9 Received, NACK\r\n");
+  }
+ }else {
+   TWCR |= (1<<TWIE) | (1<<TWEA) | (1<<TWEN);
+  }
    
  }
 int main(void){
+
+ //LED PORT D2 TO OUTPUT
+ DDRD |= (1<<PD2); 	
  //initalize USART
  initUSART();
  //initialize as I2C slave<F10>                                                
  printString("==============I2C Test =================\r\n");
  I2C_init(M168_ADDRESS);
 
- //set / allow interrpts
+ //set  allow interrpts
  sei();
- DDRD |= (1<<PD2); 	//LED PORT D2 TO OUTPUT
-
+while(1){
+printString("Waiting for Data....\r\n");
+_delay_ms(1000);
+}
 }
