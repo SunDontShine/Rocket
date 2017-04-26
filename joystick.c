@@ -6,8 +6,6 @@
 #define ADC_MAX 1023
 #define ADC_MIN 0
 #define RIGHT_ROT_MIN 400
-//#define VERT_FRONT_POS 270  
-//#define VERT_BACK_POS 80
 
 #define A_FRONT_B_BACK_LIMIT 80
 #define A_BACK_B_FRONT_LIMIT 270
